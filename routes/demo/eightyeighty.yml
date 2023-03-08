@@ -1,0 +1,5 @@
+match:
+  # modify /etc/hosts
+  - eightyeighty.test/
+backend:
+  destination: http://host.docker.internal:8080

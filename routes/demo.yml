@@ -1,0 +1,8 @@
+routes:
+  - ./demo/**/*.json
+  - ./demo/**/*.yml
+ttl: 1
+default-styles-version: "latest"
+disable-membership-paywall: true
+backcontroller-base: https://account.ncvo.org.uk
+homagepage-url: http://www.ncvo.org.uk
