@@ -1,35 +1,23 @@
+# NCVO Demo Apps
 
-## Build docker in the FC
+Here are a number of apps that demonstrat ehow to use the Front Controller in the NCVO infrastructure.
 
-    docker build -t ncvo/front-controller .
+## Developing
 
-## Start the FC with the demo routes
+    npm -i
 
-On windoze you'll need to adjust the `-v` option to something like `-v "c:/users/uname/projects/this/project/routes:/opt/front_controller/routes"`
+## Enable the dev tunnel
 
-    docker run --rm -ti --net=host --name fc -e ROUTES_MANIFEST=file://./routes/demo.yml -v $(pwd)/routes:/opt/front_controller/routes ncvo/front-controller
+    document.cookie = `fc_hmac_dev_tunnel=DEV_TUNNEL:<ASK NEONTRIBE FOR A VALID VALUE HERE>; expires=${new Date(Date.now() + 30*24*60*60*1000).toUTCString()}; path=/;`
 
-## Start your hosted app
+## Dev Tunnels
 
-We'll use an simple nginx server.
+    ngrok http 8080
 
-    docker run --rm --name some-nginx -v $(pwd):/usr/share/nginx/html:ro -p8080:80 nginx
+## HTTP Parameter
 
-## Enable a route back to your app from the fromt controller
+    https://devapp.fc.integration.ncvocloud.net/?dev_tunnel=https://cc64-86-154-116-73.eu.ngrok.io
 
-I'll use ngrok
+## Cookie
 
-    ngrok http eightyeighty.test:3000
-
-## Pass the dev host parameter to the application
-
-You'll need to encode the URL for that endpoint, for example `https%3A%2F%2F0df8-aa-bb-cc.eu.ngrok.io` then open this link in your front controller.See [here](https://www.urlencoder.org/) for the encoder
-
-http://eightyeighty.test:3000?devCookieHost=https%3A%2F%2F0df8-aa-bb-cc.eu.ngrok.io
-
-
-NGINX
-
-docker run --rm --name some-nginx -v $(pwd)/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro --net=host nginx
-
-
+    document.cookie = `dev_tunnel=https://cc64-86-154-116-73.eu.ngrok.io; expires=${new Date(Date.now() + 30*24*60*60*1000).toUTCString()}; path=/;`
