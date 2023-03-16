@@ -1,6 +1,6 @@
 {
   "name": "NCVO-demo-apps",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Here are a number of apps that demonstrat ehow to use the Front Controller in the NCVO infrastructure.",
   "main": "index.js",
   "scripts": {
