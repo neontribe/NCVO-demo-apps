@@ -4,7 +4,28 @@ Here are a number of apps that demonstrat ehow to use the Front Controller in th
 
 ## Developing
 
+### Setting up
+
     npm -i
+
+### Release a version
+
+### Patch releases
+
+    npm run release
+    git push --follow-tags origin main
+
+### Major and Minor release
+
+    ./node_modules/.bin/standard-version -r minor
+
+or
+
+    ./node_modules/.bin/standard-version -r major
+
+then
+
+    git push --follow-tags origin main
 
 ## Enable the dev tunnel
 
