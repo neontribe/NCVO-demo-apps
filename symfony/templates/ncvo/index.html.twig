@@ -19,7 +19,38 @@
 
     {% if whoAmI %}
         <div class="example-wrapper">
-            <h1>Hello {{ controller_name }}! ✅</h1>
+            <h1>Hello {{ whoAmI.name }}! ✅</h1>
+            <table>
+                <tr>
+                    <th>NCVO UUID</th>
+                    <td>{{ whoAmI.uuid }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ whoAmI.email }}</td>
+                </tr>
+                <tr>
+                    <th>Email verified?</th>
+                    <td>{% if whoAmI.getEmailVerified %}Yes{% else %}No{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Organisation</th>
+                    <td>{{ whoAmI.getAppMetadata.organisation.name }} ({{ whoAmI.getAppMetadata.organisation.id }})</td>
+                </tr>
+                <tr>
+                    <th>Member Org?</th>
+                    <td>{% if whoAmI.getAppMetadata.organisation.membershipOrganisation %}Yes{% else %}No{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Org state</th>
+                    <td>{{ whoAmI.getAppMetadata.organisation.organisationState.name }}</td>
+                </tr>
+                <tr>
+                    <th>Can manage the org?</th>
+                    <td>{% if whoAmI.getAppMetadata.managerFlag %}Yes{% else %}No{% endif %}</td>
+                </tr>
+            </table>
+            <div><a class="button button--blue" href="{{ backcontroller_base }}/api/auth/logout">Logout</a></div>
         </div>
     {% else %} {# Not logged in #}
         <div class="example-wrapper">

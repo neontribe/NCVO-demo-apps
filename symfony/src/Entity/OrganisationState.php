@@ -7,7 +7,7 @@ enum OrganisationState
     case ACTIVE;
     case RENEWAL;
     case LAPSED;
-    case  REVOKED;
+    case REVOKED;
     case ONHOLD;
     case UNKNOWN;
 

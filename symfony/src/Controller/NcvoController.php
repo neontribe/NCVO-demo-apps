@@ -66,7 +66,7 @@ class NcvoController extends AbstractController
         $whoAmI = $this->whoAmI($request);
 
         return $this->render('ncvo/index.html.twig', [
-            'controller_name' => 'NcvoController',
+            'backcontroller_base' => $this->getParameter('ncvo.base'),
             'whoAmI' => $whoAmI,
         ]);
     }
