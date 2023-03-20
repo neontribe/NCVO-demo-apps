@@ -32,9 +32,9 @@ class NcvoController extends AbstractController
         }
 
         $appMetaData = null;
-        if (array_key_exists("app_metadata", $data)) {
+        if (array_key_exists("app_metadata", $data) && $data["app_metadata"]) {
             $organisation = null;
-            if (array_key_exists("organisation", $data["app_metadata"])) {
+            if (array_key_exists("organisation", $data["app_metadata"]) && $data["app_metadata"]["organisation"]) {
                 $organisation = new Organisation(
                     $data["app_metadata"]["organisation"]["name"],
                     $data["app_metadata"]["organisation"]["id"],

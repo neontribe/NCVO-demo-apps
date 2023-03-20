@@ -5,7 +5,7 @@ namespace App\Entity;
 class AppMetaData
 {
    private bool $managerFlag;
-   private Organisation $organisation;
+   private Organisation|null $organisation;
 
     /**
      * @return bool
@@ -26,7 +26,7 @@ class AppMetaData
     /**
      * @return Organisation
      */
-    public function getOrganisation(): Organisation
+    public function getOrganisation(): Organisation|null
     {
         return $this->organisation;
     }
@@ -43,7 +43,7 @@ class AppMetaData
      * @param bool $managerFlag
      * @param Organisation $organisation
      */
-    public function __construct(bool $managerFlag, Organisation $organisation)
+    public function __construct(bool $managerFlag, Organisation|null $organisation)
     {
         $this->managerFlag = $managerFlag;
         $this->organisation = $organisation;
