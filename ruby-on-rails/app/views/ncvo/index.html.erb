@@ -1,2 +1,78 @@
-<h1>Ncvo#index</h1>
-<p>Find me in app/views/ncvo/index.html.erb</p>
+<style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+
+    th {
+        text-align: left;
+    }
+</style>
+<% if @who_am_i %>
+  <div class="example-wrapper">
+    <h1>Hello <%= @who_am_i.get_name %>! ✅</h1>
+    <table>
+      <tr>
+        <th>NCVO UUID</th>
+        <td><%= @who_am_i.get_uuid %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= @who_am_i.get_email %></td>
+      </tr>
+      <tr>
+        <th>Email verified?</th>
+        <td>
+          <% if @who_am_i.get_email_verified %>
+            Yes
+          <% else %>
+            No
+          <% end %>
+        </td>
+      </tr>
+      <% if @who_am_i.get_app_metadata&.get_organisation %>
+        <tr>
+          <th>Organisation</th>
+          <td>
+            <%= @who_am_i.get_app_metadata.get_organisation.get_name %> (<%= @who_am_i.get_app_metadata.get_organisation.get_id %>)
+          </td>
+        </tr>
+        <tr>
+          <th>Can manage org?</th>
+          <td>
+            <% if @who_am_i.get_app_metadata.get_manager_flag %>
+              Yes
+            <% else %>
+              No
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>Member Org?</th>
+          <td>
+            <% if @who_am_i.get_app_metadata.get_organisation.get_membership_status %>
+              Yes
+            <% else %>
+              No
+            <% end %>
+        </tr>
+        <tr>
+          <th>Org state</th>
+          <td><%= @who_am_i.get_app_metadata.get_organisation.get_organisation_state %></td>
+        </tr>
+      <% end %>
+    </table>
+    <div><a class="button button--blue" href="{{ backcontroller_base }}/api/auth/logout">Logout</a></div>
+  </div>
+<% else %>
+  <div class="example-wrapper">
+    <h1>Not Logged In</h1>
+  </div>
+<% end %>
