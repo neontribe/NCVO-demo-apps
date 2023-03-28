@@ -8,7 +8,7 @@ use App\Entity\OrganisationState;
 use App\Entity\WhoAmI;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\Exception\TimeoutException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,9 +61,24 @@ class NcvoController extends AbstractController
      * @throws TransportExceptionInterface
      */
     #[Route('/', name: 'app_ncvo')]
-    public function index(Request $request, LoggerInterface $logger): Response
+    public function index(Request $request, LoggerInterface $logger): RedirectResponse | Response
     {
         $whoAmI = $this->whoAmI($request);
+
+        $cookie = $request->cookies->get("bcAppSession_0", false);
+        if ($cookie) {
+            $logger->debug("bcAppSession IS PRESENT");
+        } else {
+            $logger->debug("No COOKIE");
+        }
+
+        // Need for dev only. In the real world, the who_am_i cookie will be set
+        if ($request->cookies->get("bcAppSession_0", false) && ! $whoAmI) {
+            // The bcAppSession_0 is set via the core front controller, the who_am_i cookie is set via the dev tunnel
+            // code, so during dev we need to re-request this page.
+            return new RedirectResponse($request->getRequestUri());
+        }
+
 
         return $this->render('ncvo/index.html.twig', [
             'backcontroller_base' => $this->getParameter('ncvo.base'),
